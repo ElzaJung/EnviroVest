@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import { companiesData } from "../data/companies";
 import ESGScoreCard from "../components/ESGScoreCard";
 import NewsCard from "../components/NewsCard"; // Import the updated NewsCard
+import StockChart from "../components/StockChart";
 
 function CompanyDetail() {
   const { slug } = useParams();
   const company = companiesData.find((c) => c.slug === slug);
+  company.name = "Apple Inc"; // Hardcoded for now
 
   if (!company) {
     return (
@@ -29,10 +31,14 @@ function CompanyDetail() {
   const sameTickerCompanies = companiesData.filter((c) => c.ticker === ticker);
 
   // Collect all articles from those companies (using flatMap)
-  const allArticles = sameTickerCompanies.flatMap((co) => co.sentimentData || []);
+  const allArticles = sameTickerCompanies.flatMap(
+    (co) => co.sentimentData || []
+  );
 
   return (
-    <div style={{ backgroundColor: "#1B1D1E", minHeight: "100vh", color: "#fff" }}>
+    <div
+      style={{ backgroundColor: "#1B1D1E", minHeight: "100vh", color: "#fff" }}
+    >
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2rem" }}>
         <h1 style={{ fontSize: "32px", marginBottom: "1rem" }}>
           {company.name.toUpperCase()}
@@ -43,21 +49,28 @@ function CompanyDetail() {
 
         {/* Display all articles in NewsCards */}
         <h2 style={{ marginTop: "2rem", marginBottom: "1rem" }}>Latest News</h2>
-                <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-                  {allArticles.map((article, index) => (
-                    <NewsCard
-                      key={index}
-                      articleTitle={article.article_title}
-                      articleText={article.article_text}
-                      articleResolvedUrl={article.article_resolved_url}
-                      articleTopImage={article.article_top_image}
-                      articlePublished={article.article_published}
-                    />
-                  ))}
-                </div>
-                
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          {allArticles.map((article, index) => (
+            <NewsCard
+              key={index}
+              articleTitle={article.article_title}
+              articleText={article.article_text}
+              articleResolvedUrl={article.article_resolved_url}
+              articleTopImage={article.article_top_image}
+              articlePublished={article.article_published}
+            />
+          ))}
+        </div>
+
         {/* Stock Price Card */}
-        <div style={{ display: "flex", gap: "2rem", marginBottom: "2rem", marginTop: "2rem" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "2rem",
+            marginBottom: "2rem",
+            marginTop: "2rem",
+          }}
+        >
           <div
             style={{
               backgroundColor: "#2D2F30",
@@ -82,9 +95,14 @@ function CompanyDetail() {
           </div>
         </div>
 
+        <div>
+          <StockChart companyName={company.name} />
+        </div>
+
         <h2 style={{ marginBottom: "1rem" }}>Business Summary</h2>
         <p style={{ color: "#ccc" }}>
-          {company.summary} Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+          {company.summary} Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit...
         </p>
 
         <h2 style={{ marginTop: "2rem" }}>ESG Breakdown</h2>

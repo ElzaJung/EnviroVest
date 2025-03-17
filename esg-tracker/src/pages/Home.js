@@ -6,9 +6,17 @@ import { companiesData } from "../data/companies";
 
 function Home() {
   return (
-    <div style={{ backgroundColor: "#1B1D1E", minHeight: "100vh", color: "#fff" }}>
-      <div style={{ width: "100%", maxWidth: "960px", margin: "0 auto", padding: "1rem" }}>
-        
+    <div
+      style={{ backgroundColor: "#1B1D1E", minHeight: "100vh", color: "#fff" }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "960px",
+          margin: "0 auto",
+          padding: "1rem",
+        }}
+      >
         <ESGDefinitionCards />
 
         {/* Search Bar */}
@@ -30,7 +38,9 @@ function Home() {
         </div>
 
         {/* Consumer Goods Sector Section */}
-        <h2 style={{ fontSize: "16px", marginBottom: "1rem" }}>Sector: Consumer Goods</h2>
+        <h2 style={{ fontSize: "16px", marginBottom: "1rem" }}>
+          Sector: Consumer Goods
+        </h2>
         <div
           style={{
             display: "grid",
@@ -58,7 +68,6 @@ function Home() {
             </Link>
           ))}
         </div>
-
       </div>
     </div>
   );
