@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { companiesData } from "../data/companies";
 import ESGScoreCard from "../components/ESGScoreCard";
 import NewsCard from "../components/NewsCard"; // Import the updated NewsCard
-import StockChart from "../components/StockChart";
+import yahooFinance from "yahoo-finance"; // Import yahoo-finance
 
 function CompanyDetail() {
   const { slug } = useParams();
   const company = companiesData.find((c) => c.slug === slug);
-  company.name = "Apple Inc"; // Hardcoded for now
+
+  const [stockPrice, setStockPrice] = useState(null);
+  const [stockChange, setStockChange] = useState(null);
+
+  useEffect(() => {
+    // If company found, fetch stock data from Yahoo Finance
+    if (company && company.ticker) {
+      const fetchStockData = async () => {
+        try {
+          // Fetch stock data for the company's ticker
+          const stockData = await yahooFinance.quote({
+            symbol: company.ticker,
+            modules: ["price"], // We just need the stock price
+          });
+          setStockPrice(stockData.price.regularMarketPrice);
+          setStockChange(stockData.price.regularMarketChangePercent);
+        } catch (error) {
+          console.error("Error fetching stock data:", error);
+        }
+      };
+
+      fetchStockData();
+    }
+  }, [company]);
 
   if (!company) {
     return (
@@ -20,9 +43,9 @@ function CompanyDetail() {
 
   // Ensure numeric values are valid
   const safeStockPrice =
-    typeof company.stockPrice === "number" ? company.stockPrice : 0;
+    typeof stockPrice === "number" ? company.stockPrice : 0;
   const safeStockChange =
-    typeof company.stockChange === "number" ? company.stockChange : 0;
+    typeof stockChange === "number" ? company.stockChange : 0;
 
   // Identify the company's ticker
   const { ticker } = company;
@@ -93,10 +116,6 @@ function CompanyDetail() {
               {safeStockChange >= 0 ? "▲" : "▼"} {Math.abs(safeStockChange)}%
             </p>
           </div>
-        </div>
-
-        <div>
-          <StockChart companyName={company.name} />
         </div>
 
         <h2 style={{ marginBottom: "1rem" }}>Business Summary</h2>

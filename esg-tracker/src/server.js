@@ -3,7 +3,7 @@ const cors = require("cors");
 const yahooFinance = require("yahoo-finance2").default;
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors()); // Enable CORS for all requests
 
@@ -14,11 +14,11 @@ app.get("/api/stock/:ticker", async (req, res) => {
     // Fetch historical data for the last week
     const today = new Date();
     const lastWeek = new Date();
-    lastWeek.setDate(today.getDate() - 7); // Go back 7 days
+    lastWeek.setDate(today.getDate() - 14); // Go back 14 days
 
     const result = await yahooFinance.historical(ticker, {
-      period1: lastWeek.toISOString().split("T")[0], // Set start date
-      period2: today.toISOString().split("T")[0], // Set end date
+      period1: lastWeek.toISOString().split("T")[0],
+      period2: today.toISOString().split("T")[0],
       interval: "1d", // Daily interval
     });
 
