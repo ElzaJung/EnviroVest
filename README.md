@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DataMinds
 ESG Risk Analysis
 
@@ -8,3 +9,6 @@ ESG Risk Analysis
 3. Run `python data/push-data.py` to push data to database
 
 * Edit companies.txt to add/remove companies to scrape
+=======
+# EnviroVest
+>>>>>>> c0aa913a9d2f541616de0bdf284ba51fb8a79eeb
