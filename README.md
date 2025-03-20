@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # DataMinds
 ESG Risk Analysis
 
