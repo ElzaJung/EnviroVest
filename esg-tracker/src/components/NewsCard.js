@@ -11,12 +11,14 @@ function formatDateTime(dateString) {
   if (!datePart || !timePart) {
     return { formattedDate: "Invalid Date", formattedTime: "" };
   }
+
   // 2) Split datePart into [year, month, day]
   const [year, month, day] = datePart.split("-");
+
   // 3) Split timePart into [hour, minute, second]
   const [hour, minute, second] = timePart.split(":");
 
-  // 4) Create a JavaScript Date object (note: month is zero-indexed)
+  // 4) Create a JavaScript Date object -> month is zero-indexed
   const dateObj = new Date(year, month - 1, day, hour, minute, second);
   if (isNaN(dateObj.getTime())) {
     return { formattedDate: "Invalid Date", formattedTime: "" };
@@ -60,7 +62,6 @@ const NewsCard = ({
         width: "280px",
         height: "320px",
         borderRadius: "8px",
-        overflow: "hidden",
         backgroundColor: "#1B1D1E",
         cursor: "pointer",
         position: "relative",
@@ -81,7 +82,7 @@ const NewsCard = ({
           left: 0,
         }}
       />
-      
+
       {/* Content Overlay */}
       <div
         style={{
@@ -106,11 +107,17 @@ const NewsCard = ({
           <h4 style={{ margin: "0 0 0.25rem 0", fontSize: "16px" }}>
             {articleTitle}
           </h4>
-          <p style={{ margin: "0 0 0.5rem 0", fontSize: "12px", lineHeight: "1.4" }}>
+          <p
+            style={{
+              margin: "0 0 0.5rem 0",
+              fontSize: "12px",
+              lineHeight: "1.4",
+            }}
+          >
             {snippet}
           </p>
         </div>
-        
+
         {/* Date (bottom-left) and Time (bottom-right) */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <span style={{ fontSize: "12px" }}>{formattedDate}</span>
