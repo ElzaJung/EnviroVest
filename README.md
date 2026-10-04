@@ -80,7 +80,7 @@ Return your answer in JSON format.
     return json.loads(response["choices"][0]["message"]["content"])
 ```
 ### 3. ESG Scoring
-<img width="710" height="312" alt="image" src="https://github.com/user-attachments/assets/1dc027f4-f3f3-4fe5-a93c-cc20412e949a" />
+<img width="710" height="350" alt="image" src="https://github.com/user-attachments/assets/1dc027f4-f3f3-4fe5-a93c-cc20412e949a" />
 
 #### Scoring Criteria
 <img width="744" height="312" alt="image" src="https://github.com/user-attachments/assets/9d59295d-9611-42c3-b3ff-9cb60947ee34" />
